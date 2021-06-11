@@ -32,6 +32,7 @@
 
         <!-- Dependencies versions -->
         <spring-boot.version>2.5.0</spring-boot.version>
+        <mysql-connector.version>8.0.25</mysql-connector.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.version>1.18.20</lombok.version>
         <springdoc.version>1.5.9</springdoc.version>
@@ -54,6 +55,14 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- MySql -->
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector.version}</version>
             </dependency>
 
             <!-- Utils -->
@@ -114,6 +123,11 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
         </dependency>
 
         <!-- Test -->
