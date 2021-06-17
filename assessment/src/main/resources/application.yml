@@ -1,0 +1,9 @@
+server:
+  port: '${ASSESSMENT_SERVER_PORT:8080}'
+
+app:
+  patient-service:
+    url: '${PATIENT_SERVICE_URL:http://localhost:8081/}'
+
+  note-service:
+    url: '${NOTE_SERVICE_URL:http://localhost:8082/}'

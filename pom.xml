@@ -12,6 +12,7 @@
     <modules>
         <module>patient</module>
         <module>note</module>
+        <module>assessment</module>
     </modules>
 
 
@@ -37,6 +38,7 @@
         <mongodb-driver.version>3.12.8</mongodb-driver.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.version>1.18.20</lombok.version>
+        <apache-commons-lang.version>3.12.0</apache-commons-lang.version>
         <springdoc.version>1.5.9</springdoc.version>
         <swagger-annotations.version>2.1.9</swagger-annotations.version>
         <junit.version>5.8.0-M1</junit.version>
@@ -88,6 +90,13 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${apache-commons-lang.version}</version>
+            </dependency>
+
 
             <!-- Documentations -->
 
