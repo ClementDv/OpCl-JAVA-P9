@@ -34,7 +34,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public PatientDto getAPatient(Long id) {
+    public PatientDto getPatient(Long id) {
         Optional<Patient> patient = repository.findById(id);
         if (patient.isEmpty()) {
             throw new PatientNotFoundException(id);
@@ -50,11 +50,11 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void addAPatient(PatientDto patientDto) {
+    public void addPatient(PatientDto patientDto) {
         if (!ObjectUtils.isEmpty(patientDto)) {
             Patient patient = mapper.fromDto(patientDto);
             repository.save(patient);
-            log.info("Patient saved");
+            log.info("Patient been successfully saved");
         } else {
             log.error("Patient is empty");
             throw new InvalidParameterException("Patient is empty");
@@ -62,15 +62,15 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void updatePatient(PatientDto patientDto, Long id) {
+    public void updatePatient(PatientDto patientDto) {
         if (!ObjectUtils.isEmpty(patientDto)) {
-            Optional<Patient> patient = repository.findById(id);
+            Optional<Patient> patient = repository.findById(patientDto.getId());
             if (patient.isEmpty()) {
-                throw new PatientNotFoundException(id);
+                throw new PatientNotFoundException(patientDto.getId());
             }
             mapper.fromDto(patient.get(), patientDto);
             repository.save(patient.get());
-            log.info("Patient updated");
+            log.info("Patient been successfully updated");
         } else {
             log.error("Patient is empty");
             throw new InvalidParameterException("Patient is empty");
@@ -81,7 +81,7 @@ public class PatientServiceImpl implements PatientService {
     public void deletePatient(Long id) {
         try {
             repository.deleteById(id);
-            log.info("Patient deleted");
+            log.info("Patient been successfully deleted");
         }
         catch (EmptyResultDataAccessException e) {
             throw new PatientNotFoundException(id);

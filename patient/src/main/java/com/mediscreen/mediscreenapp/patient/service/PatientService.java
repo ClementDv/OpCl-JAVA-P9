@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface PatientService {
 
-    PatientDto getAPatient(Long id);
+    PatientDto getPatient(Long id);
 
     List<PatientDto> getAllPatients();
 
-    void addAPatient(PatientDto patientDto);
+    void addPatient(PatientDto patientDto);
 
-    void updatePatient(PatientDto patientDto, Long id);
+    void updatePatient(PatientDto patientDto);
 
     void deletePatient(Long id);
 }

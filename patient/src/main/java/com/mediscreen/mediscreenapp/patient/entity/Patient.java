@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Data
 @Builder(toBuilder = true)
@@ -28,7 +28,7 @@ public class Patient {
     private String lastName;
 
     @Column(name = "birthDate", nullable = false)
-    private String birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "gender", nullable = false)
     private String gender;

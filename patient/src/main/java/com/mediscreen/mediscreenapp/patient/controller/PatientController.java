@@ -18,8 +18,8 @@ public class PatientController {
     }
 
     @GetMapping("/patient/{id}")
-    public PatientDto getAPatient(@PathVariable("id") Long id) {
-        return service.getAPatient(id);
+    public PatientDto getPatient(@PathVariable("id") Long id) {
+        return service.getPatient(id);
     }
 
     @GetMapping("/patient/list")
@@ -28,13 +28,13 @@ public class PatientController {
     }
 
     @PostMapping("/patient")
-    public void addAPatient(@RequestBody PatientDto patientDto) {
-        service.addAPatient(patientDto);
+    public void addPatient(@RequestBody PatientDto patientDto) {
+        service.addPatient(patientDto);
     }
 
-    @PutMapping("/patient/{id}")
-    public void updatePatient(@RequestBody PatientDto patientDto, @PathVariable Long id) {
-        service.updatePatient(patientDto, id);
+    @PutMapping("/patient")
+    public void updatePatient(@RequestBody PatientDto patientDto) {
+        service.updatePatient(patientDto);
     }
 
     @DeleteMapping("/patient/{id}")
