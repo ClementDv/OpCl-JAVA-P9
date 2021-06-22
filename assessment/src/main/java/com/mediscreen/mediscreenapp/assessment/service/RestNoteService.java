@@ -1,9 +1,8 @@
 package com.mediscreen.mediscreenapp.assessment.service;
 
-import com.mediscreen.mediscreenapp.assessment.dto.NoteDto;
-
 import java.util.List;
+import java.util.Map;
 
 public interface RestNoteService {
-    List<NoteDto> getNotesFromPatientId(Long patientId);
+    Map<String, Boolean> getSearchFactorsMap(Long patientId, List<String> factorsList);
 }

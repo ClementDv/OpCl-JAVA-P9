@@ -3,7 +3,7 @@ package com.mediscreen.mediscreenapp.assessment.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediscreen.mediscreenapp.assessment.dto.ErrorResponse;
-import com.mediscreen.mediscreenapp.assessment.exception.RestPatientServiceException;
+import com.mediscreen.mediscreenapp.assessment.exception.RestServiceTransmitException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,9 +16,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Slf4j
 public class ControllerAdvice extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(RestPatientServiceException.class)
+    @ExceptionHandler(RestServiceTransmitException.class)
     @ResponseBody
-    public ResponseEntity<?> handlePatientNotFoundException(RestPatientServiceException e) throws JsonProcessingException {
+    public ResponseEntity<?> handlePatientNotFoundException(RestServiceTransmitException e) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         ErrorResponse errorResponse = mapper.readValue(e.getErrorResponse(), ErrorResponse.class);
         return response(errorResponse);

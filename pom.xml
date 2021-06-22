@@ -40,6 +40,7 @@
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.version>1.18.20</lombok.version>
         <apache-commons-lang.version>3.12.0</apache-commons-lang.version>
+        <org-json.version>20210307</org-json.version>
         <springdoc.version>1.5.9</springdoc.version>
         <swagger-annotations.version>2.1.9</swagger-annotations.version>
         <junit.version>5.8.0-M1</junit.version>
@@ -97,6 +98,13 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${apache-commons-lang.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>${org-json.version}</version>
+            </dependency>
+
 
 
             <!-- Documentations -->

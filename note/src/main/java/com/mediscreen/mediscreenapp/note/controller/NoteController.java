@@ -1,6 +1,8 @@
 package com.mediscreen.mediscreenapp.note.controller;
 
 import com.mediscreen.mediscreenapp.note.dto.NoteDto;
+import com.mediscreen.mediscreenapp.note.dto.SearchFactorsRequest;
+import com.mediscreen.mediscreenapp.note.dto.SearchFactorsResult;
 import com.mediscreen.mediscreenapp.note.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,11 @@ public class NoteController {
     @PostMapping()
     public void createNote(@RequestBody NoteDto noteDto) {
         service.create(noteDto);
+    }
+
+    @PostMapping("/searchFactors")
+    public SearchFactorsResult searchFactors(@RequestBody SearchFactorsRequest request) {
+        return service.searchFactors(request);
     }
 
     @PutMapping()

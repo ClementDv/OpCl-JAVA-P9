@@ -3,18 +3,18 @@ package com.mediscreen.mediscreenapp.assessment.exception;
 import lombok.Getter;
 
 @Getter
-public class RestPatientServiceException extends RuntimeException {
+public class RestServiceTransmitException extends RuntimeException {
 
     private String errorResponse;
 
-    public RestPatientServiceException() {
+    public RestServiceTransmitException() {
     }
 
-    public RestPatientServiceException(String errorResponse) {
+    public RestServiceTransmitException(String errorResponse) {
         this.errorResponse = errorResponse;
     }
 
-    public RestPatientServiceException(String message, String errorResponse) {
+    public RestServiceTransmitException(String message, String errorResponse) {
         super(message);
         this.errorResponse = errorResponse;
     }

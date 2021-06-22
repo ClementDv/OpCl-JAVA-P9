@@ -1,6 +1,8 @@
 package com.mediscreen.mediscreenapp.note.service.impl;
 
 import com.mediscreen.mediscreenapp.note.dto.NoteDto;
+import com.mediscreen.mediscreenapp.note.dto.SearchFactorsRequest;
+import com.mediscreen.mediscreenapp.note.dto.SearchFactorsResult;
 import com.mediscreen.mediscreenapp.note.entity.Note;
 import com.mediscreen.mediscreenapp.note.exception.NoteNotFoundException;
 import com.mediscreen.mediscreenapp.note.mapper.NoteMapper;
@@ -10,12 +12,16 @@ import com.mediscreen.mediscreenapp.note.service.SequenceServiceGenerator;
 import com.mediscreen.mediscreenapp.note.service.TimeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.security.InvalidParameterException;
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -94,5 +100,22 @@ public class NoteServiceImpl implements NoteService {
         }
         log.info("Note been successfully deleted");
         repository.deleteById(id);
+    }
+
+    @Override
+    public SearchFactorsResult searchFactors(SearchFactorsRequest request) {
+        if (ObjectUtils.isEmpty(request)) {
+            throw new InvalidParameterException("Invalid Request");
+        }
+        Long patientId = request.getPatientId();
+        if (repository.existsByPatientId(patientId)) {
+            Map<String, Boolean> factorsResultMap = new HashMap<>();
+            for (String factor : request.getFactorsList()) {
+                factorsResultMap.put(factor, repository.existsByPatientIdAndNoteContentContains(patientId, factor));
+            }
+            log.info("Factors search successfully mapped");
+            return SearchFactorsResult.builder().result(factorsResultMap).build();
+        }
+        throw new NoteNotFoundException("Note(s) not found for specific patientId", patientId);
     }
 }

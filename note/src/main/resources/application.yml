@@ -1,2 +1,7 @@
 server:
   port: '${NOTE_SERVER_PORT:8082}'
+
+spring:
+  data:
+    mongodb:
+      database: 'mediscreen'

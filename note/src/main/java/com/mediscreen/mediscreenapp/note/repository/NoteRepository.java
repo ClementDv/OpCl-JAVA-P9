@@ -11,4 +11,8 @@ public interface NoteRepository extends MongoRepository<Note, Long> {
     List<Note> getAllByPatientId(Long id);
 
     boolean existsById(Long id);
+
+    boolean existsByPatientId(Long id);
+
+    Boolean existsByPatientIdAndNoteContentContains(Long patientId, String factors);
 }

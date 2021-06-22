@@ -31,7 +31,7 @@ public class Note {
     private ZonedDateTime updatedAt;
 
     @Field(name = "patientId")
-    private int patientId;
+    private Long patientId;
 
     @Field(name = "noteContent")
     private String noteContent;

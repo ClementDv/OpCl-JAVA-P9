@@ -1,7 +1,7 @@
 package com.mediscreen.mediscreenapp.assessment.service.impl;
 
 import com.mediscreen.mediscreenapp.assessment.dto.PatientDto;
-import com.mediscreen.mediscreenapp.assessment.exception.RestPatientServiceException;
+import com.mediscreen.mediscreenapp.assessment.exception.RestServiceTransmitException;
 import com.mediscreen.mediscreenapp.assessment.properties.PatientServiceProperties;
 import com.mediscreen.mediscreenapp.assessment.service.RestPatientService;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class RestPatientServiceImpl implements RestPatientService {
             return response.getBody();
         }
         catch (HttpClientErrorException e) {
-            throw new RestPatientServiceException(e.getResponseBodyAsString());
+            throw new RestServiceTransmitException(e.getResponseBodyAsString());
         }
     }
 

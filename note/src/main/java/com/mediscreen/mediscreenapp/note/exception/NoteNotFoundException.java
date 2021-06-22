@@ -11,6 +11,7 @@ public class NoteNotFoundException extends RuntimeException {
     }
 
     public NoteNotFoundException(Long id) {
+        super("Note not Found");
         this.id = id;
     }
 
