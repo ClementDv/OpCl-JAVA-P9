@@ -9,6 +9,8 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.ZonedDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,6 +23,12 @@ public class Note {
 
     @Id
     private Long id;
+
+    @Field(name = "createdAt")
+    private ZonedDateTime createdAt;
+
+    @Field(name = "updatedAt")
+    private ZonedDateTime updatedAt;
 
     @Field(name = "patientId")
     private int patientId;

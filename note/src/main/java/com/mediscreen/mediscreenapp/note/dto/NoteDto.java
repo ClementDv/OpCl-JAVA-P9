@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.ZonedDateTime;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -12,5 +14,7 @@ import lombok.NoArgsConstructor;
 public class NoteDto {
     private Long id;
     private int patientId;
+    private ZonedDateTime createdAt;
+    private ZonedDateTime updatedAt;
     private String noteContent;
 }

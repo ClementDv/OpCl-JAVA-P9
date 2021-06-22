@@ -8,37 +8,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/patient")
 public class PatientController {
 
-    private final PatientService service;
+    private final PatientService patientService;
 
     @Autowired
-    public PatientController(PatientService service) {
-        this.service = service;
+    public PatientController(PatientService patientService) {
+        this.patientService = patientService;
     }
 
-    @GetMapping("/patient/{id}")
+    @GetMapping("/{id}")
     public PatientDto getPatient(@PathVariable("id") Long id) {
-        return service.getPatient(id);
+        return patientService.getById(id);
     }
 
-    @GetMapping("/patient/list")
+    @GetMapping("/list")
     public List<PatientDto> getAllPatients() {
-        return service.getAllPatients();
+        return patientService.getAll();
     }
 
-    @PostMapping("/patient")
-    public void addPatient(@RequestBody PatientDto patientDto) {
-        service.addPatient(patientDto);
+    @PostMapping()
+    public void createPatient(@RequestBody PatientDto patientDto) {
+        patientService.create(patientDto);
     }
 
-    @PutMapping("/patient")
+    @PutMapping()
     public void updatePatient(@RequestBody PatientDto patientDto) {
-        service.updatePatient(patientDto);
+        patientService.update(patientDto);
     }
 
-    @DeleteMapping("/patient/{id}")
+    @DeleteMapping("/{id}")
     public void deletePatient(@PathVariable Long id) {
-        service.deletePatient(id);
+        patientService.delete(id);
     }
 }

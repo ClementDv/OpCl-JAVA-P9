@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController()
+@RequestMapping("/note")
 public class NoteController {
 
     private final NoteService service;
@@ -17,23 +18,23 @@ public class NoteController {
         this.service = noteService;
     }
 
-    @GetMapping("/note/{id}")
+    @GetMapping("/{id}")
     public List<NoteDto> getNotesFromPatientId(@PathVariable("id") Long patientId) {
-        return service.getNotesFromPatientId(patientId);
+        return service.getByPatientId(patientId);
     }
 
-    @PostMapping("/note")
-    public void addNote(@RequestBody NoteDto noteDto) {
-        service.addNote(noteDto);
+    @PostMapping()
+    public void createNote(@RequestBody NoteDto noteDto) {
+        service.create(noteDto);
     }
 
-    @PutMapping("/note")
+    @PutMapping()
     public void updateNote(@RequestBody NoteDto noteDto) {
-        service.updateNote(noteDto);
+        service.update(noteDto);
     }
 
-    @DeleteMapping("/note/{id}")
+    @DeleteMapping("/{id}")
     public void deleteNote(@PathVariable Long id) {
-        service.deleteNote(id);
+        service.delete(id);
     }
 }

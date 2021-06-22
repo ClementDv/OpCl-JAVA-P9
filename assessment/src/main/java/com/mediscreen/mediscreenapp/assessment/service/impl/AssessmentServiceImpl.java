@@ -1,5 +1,6 @@
 package com.mediscreen.mediscreenapp.assessment.service.impl;
 
+import com.mediscreen.mediscreenapp.assessment.domain.Factors;
 import com.mediscreen.mediscreenapp.assessment.dto.NoteDto;
 import com.mediscreen.mediscreenapp.assessment.dto.PatientDto;
 import com.mediscreen.mediscreenapp.assessment.service.AssessmentService;
@@ -8,7 +9,9 @@ import com.mediscreen.mediscreenapp.assessment.service.RestPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AssessmentServiceImpl implements AssessmentService {
@@ -29,5 +32,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         System.out.println("patient : " + patientDto);
         List<NoteDto> noteDtoList = restNoteService.getNotesFromPatientId(patientDto.getId());
         System.out.println("notes : " + noteDtoList);
+
     }
+
 }

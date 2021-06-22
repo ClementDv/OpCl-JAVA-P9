@@ -34,7 +34,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public PatientDto getPatient(Long id) {
+    public PatientDto getById(Long id) {
         Optional<Patient> patient = repository.findById(id);
         if (patient.isEmpty()) {
             throw new PatientNotFoundException(id);
@@ -44,13 +44,13 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public List<PatientDto> getAllPatients() {
+    public List<PatientDto> getAll() {
         List<Patient> patientList = repository.findAll();
         return patientList.stream().map(mapper::toDto).collect(Collectors.toList());
     }
 
     @Override
-    public void addPatient(PatientDto patientDto) {
+    public void create(PatientDto patientDto) {
         if (!ObjectUtils.isEmpty(patientDto)) {
             Patient patient = mapper.fromDto(patientDto);
             repository.save(patient);
@@ -62,7 +62,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void updatePatient(PatientDto patientDto) {
+    public void update(PatientDto patientDto) {
         if (!ObjectUtils.isEmpty(patientDto)) {
             Optional<Patient> patient = repository.findById(patientDto.getId());
             if (patient.isEmpty()) {
@@ -78,7 +78,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
-    public void deletePatient(Long id) {
+    public void delete(Long id) {
         try {
             repository.deleteById(id);
             log.info("Patient been successfully deleted");

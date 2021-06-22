@@ -5,11 +5,11 @@ import com.mediscreen.mediscreenapp.note.dto.NoteDto;
 import java.util.List;
 
 public interface NoteService {
-    List<NoteDto> getNotesFromPatientId(Long patientId);
+    List<NoteDto> getByPatientId(Long patientId);
 
-    void addNote(NoteDto noteDto);
+    void create(NoteDto noteDto);
 
-    void updateNote(NoteDto noteDto);
+    void update(NoteDto noteDto);
 
-    void deleteNote(Long id);
+    void delete(Long id);
 }
