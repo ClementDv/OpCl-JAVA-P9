@@ -8,7 +8,6 @@
         <groupId>com.mediscreen</groupId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-
     <artifactId>assessment</artifactId>
 
     <dependencies>

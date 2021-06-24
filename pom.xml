@@ -17,6 +17,7 @@
 
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -37,8 +38,9 @@
         <mysql-connector.version>8.0.25</mysql-connector.version>
         <mongodb-driver.version>3.12.8</mongodb-driver.version>
         <spring-data-mongodb.version>3.2.1</spring-data-mongodb.version>
-        <mapstruct.version>1.4.2.Final</mapstruct.version>
         <lombok.version>1.18.20</lombok.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+        <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
         <apache-commons-lang.version>3.12.0</apache-commons-lang.version>
         <org-json.version>20210307</org-json.version>
         <springdoc.version>1.5.9</springdoc.version>
@@ -46,7 +48,6 @@
         <junit.version>5.8.0-M1</junit.version>
         <surefire.version>3.0.0-M5</surefire.version>
         <jacoco.version>0.8.7</jacoco.version>
-
     </properties>
 
 
@@ -82,15 +83,15 @@
             <!-- Utils -->
 
             <dependency>
-                <groupId>org.mapstruct</groupId>
-                <artifactId>mapstruct</artifactId>
-                <version>${mapstruct.version}</version>
-            </dependency>
-
-            <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mapstruct</groupId>
+                <artifactId>mapstruct</artifactId>
+                <version>${mapstruct.version}</version>
             </dependency>
 
             <dependency>
@@ -104,7 +105,6 @@
                 <artifactId>json</artifactId>
                 <version>${org-json.version}</version>
             </dependency>
-
 
 
             <!-- Documentations -->
@@ -192,20 +192,38 @@
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <annotationProcessorPaths>
-                            <!-- MapStruct -->
-                            <path>
-                                <groupId>org.mapstruct</groupId>
-                                <artifactId>mapstruct-processor</artifactId>
-                                <version>${mapstruct.version}</version>
-                            </path>
                             <!-- Lombok -->
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
                                 <version>${lombok.version}</version>
                             </path>
+                            <!-- MapStruct -->
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${mapstruct.version}</version>
+                            </path>
+                            <!-- This is needed when using Lombok 1.18.16 and above -->
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok-mapstruct-binding</artifactId>
+                                <version>${lombok-mapstruct-binding.version}</version>
+                            </path>
                         </annotationProcessorPaths>
                     </configuration>
+                </plugin>
+                <plugin>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <version>${spring-boot.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
@@ -241,6 +259,10 @@
         </pluginManagement>
         <plugins>
 
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <!-- Jacoco - to generate tests coverage -->
             <plugin>
                 <groupId>org.jacoco</groupId>

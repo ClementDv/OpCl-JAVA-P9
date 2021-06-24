@@ -39,7 +39,7 @@ public class PatientServiceImpl implements PatientService {
         if (patient.isEmpty()) {
             throw new PatientNotFoundException(id);
         }
-        log.info("Patient found with the follow id : {}", id);
+        log.info("Patient found with the following id : {}", id);
         return mapper.toDto(patient.get());
     }
 

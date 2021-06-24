@@ -1,5 +1,7 @@
 package com.mediscreen.mediscreenapp.assessment.service;
 
+import com.mediscreen.mediscreenapp.assessment.dto.AssessRiskResult;
+
 public interface AssessmentService {
-    void assessmentPatient(Long patientId);
+    AssessRiskResult assessmentPatient(Long patientId);
 }
