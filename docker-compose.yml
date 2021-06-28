@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+
+  mysql-db:
+    image: mysql:8.0
+    environment:
+      MYSQL_DATABASE: mediscreen
+      MYSQL_USER: mediscreen
+      MYSQL_PASSWORD: mediscreen-pwd
+      MYSQL_ROOT_PASSWORD: mediscreen-pwd
+
+  mongo-db:
+    image: mongo:4.4
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: mediscreen
+      MONGO_INITDB_ROOT_PASSWORD: mediscreen-pwd
+
+  patient-service:
+    build:
+      context: .
+      target: patient
+    environment:
+      - SERVER_PORT=8081
+      - MYSQL_HOST=mysql-db
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE=mediscreen
+      - MYSQL_USER=mediscreen
+      - MYSQL_PASSWORD=mediscreen-pwd
+    ports:
+      - 8081:8081
+
+  note-service:
+    build:
+      context: .
+      target: note
+    environment:
+      - SERVER_PORT=8082
+      - MONGODB_USER=mediscreen
+      - MONGODB_PASSWORD=mediscreen-pwd
+      - MONGODB_HOST=mongo-db
+      - MONGODB_PORT=27017
+      - MONGODB_DATABASE=mediscreen
+    ports:
+      - 8082:8082
+
+  assessment-service:
+    build:
+      context: .
+      target: assessment
+    environment:
+      - SERVER_PORT=8080
+      - PATIENT_SERVICE_URL=http://patient-service:8081/
+      - NOTE_SERVICE_URL=http://note-service:8082/
+    ports:
+      - 8080:8080

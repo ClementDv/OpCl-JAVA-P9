@@ -1,7 +1,7 @@
 # Application
 
 server:
-  port: '${PATIENT_SERVER_PORT:8081}'
+  port: '${SERVER_PORT:8081}'
 
 # Database
 
@@ -21,6 +21,9 @@ spring:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/${MYSQL_DB_NAME:mediscreen}?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
-    username: ${MYSQL_USR:root}
-    password: ${MYSQL_PWD:rootroot}
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:mediscreen}?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD:rootroot}
+    hikari:
+      # Wait 1 min for MySQL service initialization
+      initialization-fail-timeout: 60000

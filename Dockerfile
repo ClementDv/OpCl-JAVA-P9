@@ -23,11 +23,11 @@ CMD ["java", "-jar", "mediscreen-service.jar"]
 
 # Assessment
 FROM runtime as assessment
-COPY --chown=app --from=build /assessment/target/assessment.jar mediscreen-service
+COPY --chown=app --from=build /assessment/target/assessment.jar mediscreen-service.jar
 
 # Note
 FROM runtime as note
-COPY --chown=app --from=build /note/target/note.jar mediscreen-service
+COPY --chown=app --from=build /note/target/note.jar mediscreen-service.jar
 
 # Patient
 FROM runtime as patient
