@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.security.InvalidParameterException;
 import java.util.HashMap;
 
+import static com.mediscreen.mediscreenapp.patient.exception.ErrorCodesEnum.INVALID_PARAMETER;
 import static com.mediscreen.mediscreenapp.patient.exception.ErrorCodesEnum.PATIENT_NOT_FOUND;
 
 @org.springframework.web.bind.annotation.ControllerAdvice
@@ -30,6 +32,18 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
                 .metadata(new HashMap<>())
                 .build()
                 .withMetadata("id", e.getPatientId()));
+    }
+
+    @ExceptionHandler(InvalidParameterException.class)
+    @ResponseBody
+    public ResponseEntity<?> handleInvalidParameterException(InvalidParameterException e) {
+        return response(ErrorResponse
+                .builder()
+                .status(INVALID_PARAMETER.getStatus())
+                .code(INVALID_PARAMETER.getCode())
+                .message(e.getMessage())
+                .metadata(new HashMap<>())
+                .build());
     }
 
     protected ResponseEntity<ErrorResponse> response(ErrorResponse errorResponse) {
