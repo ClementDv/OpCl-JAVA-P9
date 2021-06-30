@@ -30,11 +30,6 @@ public class NoteController {
         service.create(noteDto);
     }
 
-    @PostMapping("/searchFactors")
-    public SearchFactorsResult searchFactors(@RequestBody SearchFactorsRequest request) {
-        return service.searchFactors(request);
-    }
-
     @PutMapping()
     public void updateNote(@RequestBody NoteDto noteDto) {
         service.update(noteDto);
@@ -43,5 +38,10 @@ public class NoteController {
     @DeleteMapping("/{id}")
     public void deleteNote(@PathVariable Long id) {
         service.delete(id);
+    }
+
+    @PostMapping("/searchFactors")
+    public SearchFactorsResult searchFactors(@RequestBody SearchFactorsRequest request) {
+        return service.searchFactors(request);
     }
 }

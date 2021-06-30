@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 @AllArgsConstructor
 public enum ErrorCodesEnum {
 
-    INVALID_PARAM(HttpStatus.UNPROCESSABLE_ENTITY.value(), "INVALID_PARAM"),
+    INVALID_PARAMETER(HttpStatus.UNPROCESSABLE_ENTITY.value(), "INVALID_PARAMETER"),
     NOTE_NOT_FOUND(HttpStatus.NOT_FOUND.value(), "NOTE_NOT_FOUND");
 
     private final int status;

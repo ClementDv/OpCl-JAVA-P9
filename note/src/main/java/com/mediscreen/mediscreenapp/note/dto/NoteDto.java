@@ -13,7 +13,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 public class NoteDto {
     private Long id;
-    private int patientId;
+    private Long patientId;
     private ZonedDateTime createdAt;
     private ZonedDateTime updatedAt;
     private String noteContent;

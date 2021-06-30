@@ -12,13 +12,11 @@ import com.mediscreen.mediscreenapp.note.service.SequenceServiceGenerator;
 import com.mediscreen.mediscreenapp.note.service.TimeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
 import java.security.InvalidParameterException;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

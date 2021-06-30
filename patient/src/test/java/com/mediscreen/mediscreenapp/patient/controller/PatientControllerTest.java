@@ -4,7 +4,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mediscreen.mediscreenapp.patient.data.PatientData;
 import com.mediscreen.mediscreenapp.patient.dto.PatientDto;
-import com.mediscreen.mediscreenapp.patient.entity.Patient;
 import com.mediscreen.mediscreenapp.patient.exception.PatientNotFoundException;
 import com.mediscreen.mediscreenapp.patient.service.PatientService;
 import org.assertj.core.api.Assertions;
@@ -21,8 +20,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.security.InvalidParameterException;
 import java.util.List;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @WebMvcTest(PatientController.class)
 public class PatientControllerTest {
@@ -97,6 +95,7 @@ public class PatientControllerTest {
                 .content(jsonMapper.writeValueAsString(patientDto))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
+        Mockito.verify(service, Mockito.times(1)).create(patientDto);
 
 
         // PatientEmpty
@@ -112,10 +111,32 @@ public class PatientControllerTest {
     }
 
     @Test
-    void updatePatient() {
+    void updatePatient() throws Exception {
+        PatientDto patientDto = PatientData.generatePatientDto(12L);
+        mvc.perform(put("/patient")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(jsonMapper.writeValueAsString(patientDto))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        Mockito.verify(service, Mockito.times(1)).update(patientDto);
     }
 
     @Test
-    void deletePatient() {
+    void deletePatient() throws Exception {
+        Mockito.doThrow(PatientNotFoundException.class).when(service).delete(Mockito.eq(22L));
+
+        // DeletePatient
+        long id = 1L;
+        mvc.perform(delete("/patient/" + id)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+        Mockito.verify(service, Mockito.times(1)).delete(1L);
+
+        // PatientNotFound
+        mvc.perform(delete("/patient/" + 22L)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andExpect(r -> org.junit.jupiter.api.Assertions.assertTrue(
+                        r.getResolvedException() instanceof PatientNotFoundException));
     }
 }
