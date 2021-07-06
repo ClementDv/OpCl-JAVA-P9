@@ -18,7 +18,7 @@ public class ControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(RestServiceTransmitException.class)
     @ResponseBody
-    public ResponseEntity<?> handlePatientNotFoundException(RestServiceTransmitException e) throws JsonProcessingException {
+    public ResponseEntity<?> handleRestException(RestServiceTransmitException e) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         ErrorResponse errorResponse = mapper.readValue(e.getErrorResponse(), ErrorResponse.class);
         return response(errorResponse);

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -37,7 +38,7 @@ public class AssessmentServiceImpl implements AssessmentService {
     @Override
     public AssessRiskResult assessmentPatient(Long patientId) {
         PatientDto patient = restPatientService.getPatient(patientId);
-        Map<String, Boolean> searchFactorsMap = restNoteService.getSearchFactorsMap(patient.getId(), getFactorsList());
+        Map<String, Boolean> searchFactorsMap = restNoteService.getSearchFactorsMap(patient.getId(), Factors.getAllFactors());
         List<String> factorsMatchList = getOnlyUniqueFactorsMatchList(searchFactorsMap);
         long factorsNb = factorsMatchList.size();
 
@@ -55,12 +56,12 @@ public class AssessmentServiceImpl implements AssessmentService {
         for (Factors factors : Factors.values()) {
             for (String term : factors.getTerms()) {
                 if (Boolean.TRUE.equals(searchFactorsMap.get(term))) {
-                    searchUniqueFactorsMatchList.add(term);
+                    searchUniqueFactorsMatchList.add(factors.toString());
                     break;
                 }
             }
         }
-        return searchUniqueFactorsMatchList;
+        return searchUniqueFactorsMatchList.stream().sorted().collect(Collectors.toList());
     }
 
     private RiskLevel getRiskLevel(PatientDto patient, long factorsNb) {
@@ -85,12 +86,6 @@ public class AssessmentServiceImpl implements AssessmentService {
             }
         }
         return RiskLevel.NONE;
-    }
-
-    private List<String> getFactorsList() {
-        List<String> factorList = new ArrayList<>();
-        Arrays.stream(Factors.values()).forEach(e -> factorList.addAll(Arrays.asList(e.getTerms())));
-        return factorList;
     }
 
 }

@@ -1,7 +1,6 @@
 package com.mediscreen.mediscreenapp.patient.controller;
 
 import com.mediscreen.mediscreenapp.patient.dto.ErrorResponse;
-import com.mediscreen.mediscreenapp.patient.exception.ErrorCodesEnum;
 import com.mediscreen.mediscreenapp.patient.exception.PatientNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
