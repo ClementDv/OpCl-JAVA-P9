@@ -101,18 +101,18 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public SearchFactorsResult searchFactors(SearchFactorsRequest request) {
+    public SearchFactorsResult searchTermsFactors(SearchFactorsRequest request) {
         if (ObjectUtils.isEmpty(request)) {
             throw new InvalidParameterException("Invalid Request");
         }
         Long patientId = request.getPatientId();
         if (repository.existsByPatientId(patientId)) {
-            Map<String, Boolean> factorsResultMap = new HashMap<>();
-            for (String factor : request.getFactorsList()) {
-                factorsResultMap.put(factor, repository.existsByPatientIdAndNoteContentContains(patientId, factor));
+            Map<String, Boolean> termResultMap = new HashMap<>();
+            for (String factor : request.getFactorsTermList()) {
+                termResultMap.put(factor, repository.existsByPatientIdAndNoteContentContains(patientId, factor));
             }
             log.info("Factors search successfully mapped");
-            return SearchFactorsResult.builder().result(factorsResultMap).build();
+            return SearchFactorsResult.builder().result(termResultMap).build();
         }
         throw new NoteNotFoundException("Note(s) not found for specific patientId", patientId);
     }

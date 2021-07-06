@@ -115,10 +115,10 @@ class NoteServiceTest {
     }
 
     @Test
-    void searchFactors() {
+    void searchTermFactors() {
         SearchFactorsRequest searchFactorsRequest = SearchFactorsRequest.builder()
                 .patientId(1L)
-                .factorsList(List.of("test", "test1", "test2"))
+                .factorsTermList(List.of("test", "test1", "test2"))
                 .build();
         Long patientId = searchFactorsRequest.getPatientId();
         // getFactorsResult
@@ -130,11 +130,11 @@ class NoteServiceTest {
         SearchFactorsResult result = SearchFactorsResult.builder()
                 .result(factorsMapTest)
                 .build();
-        Assertions.assertThat(noteService.searchFactors(searchFactorsRequest)).isEqualTo(result);
+        Assertions.assertThat(noteService.searchTermsFactors(searchFactorsRequest)).isEqualTo(result);
         // NoteNotFound
         Mockito.when(repository.existsByPatientId(patientId)).thenReturn(false);
-        Assertions.assertThatThrownBy(() -> noteService.searchFactors(searchFactorsRequest)).isInstanceOf(NoteNotFoundException.class);
+        Assertions.assertThatThrownBy(() -> noteService.searchTermsFactors(searchFactorsRequest)).isInstanceOf(NoteNotFoundException.class);
         // InvalidParam
-        Assertions.assertThatThrownBy(() -> noteService.searchFactors(null)).isInstanceOf(InvalidParameterException.class);
+        Assertions.assertThatThrownBy(() -> noteService.searchTermsFactors(null)).isInstanceOf(InvalidParameterException.class);
     }
 }

@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @SpringBootTest
 class AssessmentServiceTest {
@@ -116,11 +114,11 @@ class AssessmentServiceTest {
         Map<String, Boolean> mapFactors = AssessmentData.getMapFactorsWithNumberRisk(factorsNumber);
 
         Mockito.when(restPatientService.getPatient(patientId)).thenReturn(patientDto);
-        Mockito.when(restNoteService.getSearchFactorsMap(Mockito.eq(patientId), Mockito.eq(factorsList)))
+        Mockito.when(restNoteService.getSearchTermsFactorsMap(Mockito.eq(patientId), Mockito.eq(factorsList)))
                 .thenReturn(mapFactors);
         AssessRiskResult assessRiskResult = AssessRiskResult.builder()
                 .patientId(patientId)
-                .factorsTermsMatch(AssessmentData.getFactorsListFromTermList(mapFactors))
+                .factorsMatch(AssessmentData.getFactorsListFromTermList(mapFactors))
                 .riskLevel(expectedRiskLevel)
                 .build();
         Assertions.assertThat(service.assessmentPatient(patientId)).isEqualTo(assessRiskResult);

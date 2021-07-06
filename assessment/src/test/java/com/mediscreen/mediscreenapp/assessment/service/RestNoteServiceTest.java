@@ -32,7 +32,7 @@ class RestNoteServiceTest {
     }
 
     @Test
-    void getSearchFactorsMap() {
+    void getSearchTermsFactorsMap() {
         long patientId =  1L;
         List<String> factorsList = Factors.getAllFactors();
 
@@ -44,11 +44,11 @@ class RestNoteServiceTest {
                 .build();
         Mockito.when(restTemplate.postForEntity(Mockito.anyString(), Mockito.any(), Mockito.any()))
                 .thenReturn(new ResponseEntity<>(searchFactorsResult, HttpStatus.OK));
-        Assertions.assertThat(service.getSearchFactorsMap(patientId, factorsList)).isEqualTo(factorsMap);
+        Assertions.assertThat(service.getSearchTermsFactorsMap(patientId, factorsList)).isEqualTo(factorsMap);
 
         // ThrowException
         Mockito.when(restTemplate.postForEntity(Mockito.anyString(), Mockito.any(), Mockito.any()))
                 .thenThrow(new HttpClientErrorException(HttpStatus.valueOf(412), ""));
-        Assertions.assertThatThrownBy(() -> service.getSearchFactorsMap(patientId, factorsList)).isInstanceOf(RestServiceTransmitException.class);
+        Assertions.assertThatThrownBy(() -> service.getSearchTermsFactorsMap(patientId, factorsList)).isInstanceOf(RestServiceTransmitException.class);
     }
 }

@@ -8,6 +8,7 @@ import java.time.ZonedDateTime;
 
 @Service
 public class TimeServiceImpl implements TimeService {
+
     @Override
     public ZonedDateTime now() {
         return ZonedDateTime.now(ZoneOffset.UTC).withNano(0);

@@ -88,7 +88,7 @@ public class AssessmentData {
                 .builder()
                 .patientId(patientId)
                 .riskLevel(RiskLevel.values()[random.nextInt(RiskLevel.values().length)])
-                .factorsTermsMatch(Factors.getAllFactors())
+                .factorsMatch(Factors.getAllFactors())
                 .build();
     }
 }

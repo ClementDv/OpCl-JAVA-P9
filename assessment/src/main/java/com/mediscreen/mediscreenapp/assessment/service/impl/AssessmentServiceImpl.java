@@ -15,7 +15,6 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,20 +37,20 @@ public class AssessmentServiceImpl implements AssessmentService {
     @Override
     public AssessRiskResult assessmentPatient(Long patientId) {
         PatientDto patient = restPatientService.getPatient(patientId);
-        Map<String, Boolean> searchFactorsMap = restNoteService.getSearchFactorsMap(patient.getId(), Factors.getAllFactors());
-        List<String> factorsMatchList = getOnlyUniqueFactorsMatchList(searchFactorsMap);
+        Map<String, Boolean> searchFactorsMap = restNoteService.getSearchTermsFactorsMap(patient.getId(), Factors.getAllFactors());
+        List<String> factorsMatchList = getOnlyFactorsMatchList(searchFactorsMap);
         long factorsNb = factorsMatchList.size();
 
         AssessRiskResult result = AssessRiskResult.builder()
                 .patientId(patientId)
-                .factorsTermsMatch(factorsMatchList)
+                .factorsMatch(factorsMatchList)
                 .riskLevel(getRiskLevel(patient, factorsNb))
                 .build();
         log.info("Assessment successful for following patient id : {}", patientId);
         return result;
     }
 
-    private List<String> getOnlyUniqueFactorsMatchList(Map<String, Boolean> searchFactorsMap) {
+    private List<String> getOnlyFactorsMatchList(Map<String, Boolean> searchFactorsMap) {
         List<String> searchUniqueFactorsMatchList = new ArrayList<>();
         for (Factors factors : Factors.values()) {
             for (String term : factors.getTerms()) {

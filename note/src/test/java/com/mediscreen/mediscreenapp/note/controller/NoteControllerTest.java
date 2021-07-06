@@ -136,7 +136,7 @@ class NoteControllerTest {
     void searchFactors() throws Exception {
         SearchFactorsRequest searchFactorsRequest = SearchFactorsRequest.builder()
                 .patientId(1L)
-                .factorsList(List.of("test", "test1", "test2"))
+                .factorsTermList(List.of("test", "test1", "test2"))
                 .build();
 
         Map<String, Boolean> factorsMapTest = Map.of("test", true, "test1", true, "test2", false);
@@ -144,8 +144,8 @@ class NoteControllerTest {
                 .result(factorsMapTest)
                 .build();
 
-        Mockito.when(service.searchFactors(Mockito.eq(searchFactorsRequest))).thenReturn(searchFactorsResult);
-        MvcResult result = mvc.perform(post("/note/searchFactors")
+        Mockito.when(service.searchTermsFactors(Mockito.eq(searchFactorsRequest))).thenReturn(searchFactorsResult);
+        MvcResult result = mvc.perform(post("/note/searchTermsFactors")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonMapper.writeValueAsString(searchFactorsRequest))
                 .accept(MediaType.APPLICATION_JSON))
