@@ -1,0 +1,12 @@
+:host {
+  display: block;
+
+  .page__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  table {
+    width: 100%;
+  }
+}

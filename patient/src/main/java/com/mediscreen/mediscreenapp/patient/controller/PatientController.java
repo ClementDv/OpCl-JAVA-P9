@@ -46,7 +46,7 @@ public class PatientController {
     @ApiResponse(responseCode = "200", description = "Successful operation",
             content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = PatientDto.class))))
     @Operation(description = "Get all patient")
-    @GetMapping("/list")
+    @GetMapping("/")
     public List<PatientDto> getAllPatients() {
         return patientService.getAll();
     }

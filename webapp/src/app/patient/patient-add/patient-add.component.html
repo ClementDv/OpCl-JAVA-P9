@@ -1,0 +1,22 @@
+<form novalidate [formGroup]="patientForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter lastNamer</mat-label>
+    <input matInput placeholder="LastName" formControlName="lastName">
+    <!--  <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter firstName</mat-label>
+    <input matInput placeholder="FirstName" formControlName="firstName">
+    <!--  <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter birth date</mat-label>
+    <input matInput placeholder="BirthDate" formControlName="birthDate">
+    <!--  <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Enter address</mat-label>
+    <input matInput placeholder="Address" formControlName="address">
+    <!--  <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+  </mat-form-field>
+</form>
