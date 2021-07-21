@@ -43,11 +43,11 @@ public class RestNoteServiceImpl implements RestNoteService {
     @Override
     public Map<String, Boolean> getSearchTermsFactorsMap(Long patientId, List<String> termsList) {
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(noteServiceProperties.getUrl())
-                .path("/note/searchFactors");
+                .path("/note/searchTermsFactors");
 
         headers.setContentType(MediaType.APPLICATION_JSON);
         jsonObject.put("patientId", patientId)
-                .put("factorsList", termsList);
+                .put("factorsTermList", termsList);
         HttpEntity<String> body = new HttpEntity<>(jsonObject.toString(), headers);
 
         try {

@@ -1,0 +1,34 @@
+<p>
+  <mat-toolbar class="page__header">
+    <span>Edit note</span>
+  </mat-toolbar>
+</p>
+
+
+<form novalidate [formGroup]="noteForm">
+  <mat-card>
+
+    <mat-card-content>
+
+      <mat-card-header>
+        <mat-card-title>
+          Note of {{note?.createdAt | date:'short': '': 'fr-FR'}}
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-form-field class="content" appearance="fill">
+        <mat-label>Enter content</mat-label>
+        <textarea matInput formControlName="content"></textarea>
+        <mat-error *ngIf="contentControl.invalid">Content is mandatory</mat-error>
+      </mat-form-field>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]="noteForm.invalid ? true : null">
+        Update
+      </button>
+      <button mat-button (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

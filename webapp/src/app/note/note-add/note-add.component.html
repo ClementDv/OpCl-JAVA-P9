@@ -1,0 +1,28 @@
+<p>
+  <mat-toolbar class="page__header">
+    <span>Add note</span>
+  </mat-toolbar>
+</p>
+
+
+<form novalidate [formGroup]="noteForm">
+  <mat-card>
+
+    <mat-card-content>
+
+      <mat-form-field class="content" appearance="fill">
+        <mat-label>Enter content</mat-label>
+        <textarea matInput formControlName="content"></textarea>
+        <mat-error *ngIf="contentControl.invalid">Content is mandatory</mat-error>
+      </mat-form-field>
+
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]="noteForm.invalid ? true : null">
+        Add
+      </button>
+      <button mat-button (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</form>

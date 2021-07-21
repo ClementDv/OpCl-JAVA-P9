@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -34,7 +35,7 @@ public class PatientDto {
     @Schema(name = "address", description = "Optional")
     private String address;
 
-    @NotEmpty
+    @NotNull
     @Schema(name = "birthDate")
     private LocalDate birthDate;
 

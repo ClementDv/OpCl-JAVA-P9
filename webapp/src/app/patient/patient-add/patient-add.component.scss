@@ -1,0 +1,25 @@
+:host {
+  display: block;
+
+  mat-card-header {
+    display: flex;
+    justify-content: center;
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+  }
+
+  mat-card-actions {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mat-form-field {
+    width: 50%;
+  }
+}

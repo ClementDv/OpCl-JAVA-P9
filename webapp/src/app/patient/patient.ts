@@ -4,6 +4,7 @@ export class Patient {
   lastName: string;
   gender: string;
   address: string;
+  phoneNumber: string;
   birthDate: string;
 
   constructor(obj?: Partial<Patient>) {

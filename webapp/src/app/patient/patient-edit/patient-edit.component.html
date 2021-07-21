@@ -1,1 +1,61 @@
-<p>patient-edit works!</p>
+<p>
+  <mat-toolbar class="page__header">
+    <span>Update patient</span>
+  </mat-toolbar>
+</p>
+
+<form novalidate [formGroup]="patientForm">
+
+  <mat-card>
+    <mat-card-content>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Enter last name</mat-label>
+        <input matInput placeholder="LastName" formControlName="lastName">
+        <mat-error *ngIf="lastNameControl.invalid">Last name is mandatory</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Enter first name</mat-label>
+        <input matInput placeholder="FirstName" formControlName="firstName">
+        <mat-error *ngIf="firstNameControl.invalid">First name is mandatory</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Gender</mat-label>
+        <mat-select formControlName="gender">
+          <mat-option value="male">male</mat-option>
+          <mat-option value="female">female</mat-option>
+        </mat-select>
+        <mat-error *ngIf="genderControl.invalid">Gender is mandatory</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Enter birth date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="birthDate">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="birthDateControl.invalid">Birth date is mandatory</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Enter phone number</mat-label>
+        <input matInput placeholder="PhoneNumber" formControlName="phoneNumber">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Enter address</mat-label>
+        <input matInput placeholder="Address" formControlName="address">
+      </mat-form-field>
+
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="submit()" [disabled]="patientForm.invalid ? true : null">
+        Update
+      </button>
+      <button mat-button (click)="cancel()">Cancel</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+
+

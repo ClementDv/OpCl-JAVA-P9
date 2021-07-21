@@ -18,7 +18,7 @@ public class SearchFactorsRequest {
     @Schema(name = "patientId", description = "use to get patient's notes")
     private Long patientId;
 
-    @NotEmpty
+    @NotNull
     @Schema(name = "factorsList", description = "list of all terms to check")
     private List<@NotNull String> factorsTermList;
 }

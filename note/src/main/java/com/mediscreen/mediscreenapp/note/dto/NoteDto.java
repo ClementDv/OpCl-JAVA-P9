@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 
 @Data
@@ -18,7 +20,8 @@ public class NoteDto {
 
     private Long id;
 
-    @NotEmpty
+    @NotNull
+    @Min(value = 0)
     private Long patientId;
 
     @Schema(name = "createdAt", description = "creation date and time")

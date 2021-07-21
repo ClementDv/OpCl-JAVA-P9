@@ -9,10 +9,21 @@ import java.security.InvalidParameterException;
 import java.util.List;
 
 public interface NoteService {
+
+    /**
+     * Get a note corresponding to its Id;
+     *
+     * @param noteId to identify te note
+     * @return the noteDTO corresponding to the noteId
+     * @throws InvalidParameterException if the noteId is negative or null
+     * @throws NoteNotFoundException if there's no not found
+     */
+    NoteDto getNote(Long noteId);
+
     /**
      * Get all notes from a patient
      *
-     * @param patientId
+     * @param patientId to identify notes
      * @return a List of noteDto
      * @throws InvalidParameterException if the patientId is negative or null
      */

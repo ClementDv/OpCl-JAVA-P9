@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController()
@@ -31,15 +32,28 @@ public class NoteController {
     }
 
     @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "404", description = "NoteNotFoundException",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class))),
+            @ApiResponse(responseCode = "422", description = "InvalidParameterException",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
+    })
+    @GetMapping("/{id}")
+    public NoteDto getNote(
+            @Parameter(name = "noteId", description = "use to identify the note") @PathVariable("id") Long noteId) {
+        return service.getNote(noteId);
+    }
+
+    @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successful operation",
                     content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = NoteDto.class)))),
             @ApiResponse(responseCode = "422", description = "InvalidParameterException",
                     content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)))
     })
-    @GetMapping("/{id}")
+    @GetMapping()
     @Operation(description = "Get all notes from a patient")
     public List<NoteDto> getNotesFromPatientId(
-            @Parameter(name = "patientId", description = "use to find patient's notes") @PathVariable("id") Long patientId) {
+            @Parameter(name = "patientId", description = "use to find patient's notes") @RequestParam("patientId") Long patientId) {
         return service.getByPatientId(patientId);
     }
 
@@ -51,7 +65,8 @@ public class NoteController {
     @PostMapping()
     @Operation(description = "Add a note send in parameter to DataBase")
     public void createNote(
-            @Parameter(name = "noteDto", description = "note to add") @RequestBody NoteDto noteDto) {
+            @Parameter(name = "noteDto", description = "note to add")
+            @Valid @RequestBody NoteDto noteDto) {
         service.create(noteDto);
     }
 
@@ -65,7 +80,8 @@ public class NoteController {
     @PutMapping()
     @Operation(description = "Update note find with the id of the parameter send and his content in the DataBase")
     public void updateNote(
-            @Parameter(name = "noteDto", description = "note to update, holding noteId to identify the note") @RequestBody NoteDto noteDto) {
+            @Parameter(name = "noteDto", description = "note to update, holding noteId to identify the note")
+            @Valid @RequestBody NoteDto noteDto) {
         service.update(noteDto);
     }
 
@@ -95,7 +111,7 @@ public class NoteController {
     @Operation(description = "Check if terms are present in patient's notes")
     public SearchFactorsResult searchTermsFactors(
             @Parameter(name = "request", description = "Hold the patientId to get notes, and the list of terms to check in those notes")
-            @RequestBody SearchFactorsRequest request) {
+            @Valid @RequestBody SearchFactorsRequest request) {
         return service.searchTermsFactors(request);
     }
 }

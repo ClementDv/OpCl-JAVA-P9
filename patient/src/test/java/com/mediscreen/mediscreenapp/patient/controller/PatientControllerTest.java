@@ -76,7 +76,7 @@ public class PatientControllerTest {
     void getAllPatients() throws Exception {
         List<PatientDto> patientDtoListTest = PatientData.generatePatientDtoList(10);
         Mockito.when(service.getAll()).thenReturn(patientDtoListTest);
-        MvcResult result = mvc.perform(get("/patient/list")
+        MvcResult result = mvc.perform(get("/patient/")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
@@ -105,9 +105,7 @@ public class PatientControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonMapper.writeValueAsString(emptyPatient))
                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
-                .andExpect(r -> org.junit.jupiter.api.Assertions.assertTrue(
-                        r.getResolvedException() instanceof InvalidParameterException));
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test

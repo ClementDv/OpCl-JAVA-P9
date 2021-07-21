@@ -15,6 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.security.InvalidParameterException;
 import java.util.List;
 
@@ -59,7 +60,7 @@ public class PatientController {
     @Operation(description = "Add patient send in parameter to DataBase")
     @PostMapping()
     public void createPatient(
-            @Parameter(name = "patientDto", description = "patient to add") @RequestBody PatientDto patientDto) {
+            @Parameter(name = "patientDto", description = "patient to add") @Valid @RequestBody PatientDto patientDto) {
         patientService.create(patientDto);
     }
 
@@ -74,7 +75,7 @@ public class PatientController {
     @PutMapping()
     public void updatePatient(
             @Parameter(name = "patientDto", description = "patient to update, holding patientId to identify the patient")
-            @RequestBody PatientDto patientDto) {
+            @Valid @RequestBody PatientDto patientDto) {
         patientService.update(patientDto);
     }
     @ApiResponses(value = {

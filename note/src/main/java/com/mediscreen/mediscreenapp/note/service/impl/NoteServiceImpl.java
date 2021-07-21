@@ -20,6 +20,7 @@ import java.time.ZonedDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -43,9 +44,22 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
+    public NoteDto getNote(Long noteId) {
+        if (noteId == null  || noteId <= 0) {
+            throw new InvalidParameterException("Invalid Id");
+        }
+        Optional<Note> note = repository.findById(noteId);
+        if (note.isEmpty()) {
+            throw new NoteNotFoundException(noteId);
+        }
+        log.info("Note found for following id : {}", noteId);
+        return mapper.toDto(note.get());
+    }
+
+    @Override
     public List<NoteDto> getByPatientId(Long patientId) {
         if (patientId == null || patientId <= 0) {
-            throw new InvalidParameterException("Invalid Id");
+            throw new InvalidParameterException("Invalid patientId");
         }
         List<NoteDto> noteList = repository.getAllByPatientId(patientId).stream().map(mapper::toDto).collect(Collectors.toList());
         if (noteList.isEmpty()) {

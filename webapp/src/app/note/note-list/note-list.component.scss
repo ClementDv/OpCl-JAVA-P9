@@ -1,0 +1,28 @@
+:host {
+  display: block;
+
+  .page__header {
+    display: flex;
+    justify-content: space-between;
+
+    .arrow_back {
+      vertical-align: middle;
+    }
+
+    #title {
+      vertical-align: middle
+    }
+  }
+
+  mat-card {
+    display: block;
+    max-width: 60%;
+    margin: 3px auto auto;
+  }
+
+  .headers {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}

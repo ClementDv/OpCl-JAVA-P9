@@ -9,6 +9,14 @@ import {MatMenuModule} from "@angular/material/menu";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {ReactiveFormsModule} from "@angular/forms";
 import {MatInputModule} from "@angular/material/input";
+import {MatSelectModule} from "@angular/material/select";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatCardModule} from "@angular/material/card";
+import {MatSnackBarModule} from "@angular/material/snack-bar";
+import {MatSidenavModule} from "@angular/material/sidenav";
+import {MatListModule} from "@angular/material/list";
+
 
 
 const dependencies = [
@@ -16,12 +24,19 @@ const dependencies = [
   MatToolbarModule,
   MatButtonModule,
   MatIconModule,
+  MatListModule,
   MatFormFieldModule,
+  MatSelectModule,
+  MatDatepickerModule,
+  MatNativeDateModule,
+  MatCardModule,
+  MatSnackBarModule,
   MatInputModule,
   ReactiveFormsModule,
   MatTableModule,
   MatMenuModule,
   HttpClientModule,
+  MatSidenavModule,
 ];
 
 @NgModule({

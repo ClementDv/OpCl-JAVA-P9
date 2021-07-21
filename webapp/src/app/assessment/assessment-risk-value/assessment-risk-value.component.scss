@@ -1,0 +1,21 @@
+:host {
+  display: block;
+
+  .arrow_back {
+    vertical-align: middle;
+  }
+
+  #title {
+    vertical-align: middle
+  }
+
+  mat-card {
+    text-align: center;
+    width: 30%;
+    margin: auto;
+
+    h2 {
+      margin-bottom: 0;
+    }
+  }
+}

@@ -1,0 +1,23 @@
+<ng-container *ngIf="reactiveData$ | async as data">
+  <p>
+    <mat-toolbar class="page__header">
+      <button mat-icon-button class="arrow_back" (click)="backArrow()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <span id="title">{{data[1]?.lastName}} {{data[1]?.firstName}}'s assessment</span>
+    </mat-toolbar>
+  </p>
+
+  <mat-card>
+    <div class="assessment_title">
+      <h2>Diabetes assess : {{data[0]?.riskLevel | risqueLabel}}</h2>
+    </div>
+    <h3 *ngIf="data[0]?.factorsMatch.length == 0">No factors found</h3>
+    <mat-card-content *ngIf="data[0]?.factorsMatch.length != 0">
+      <mat-list>
+        <h3>Factors :</h3>
+        <mat-list-item *ngFor="let factor of data[0]?.factorsMatch">{{factor}}</mat-list-item>
+      </mat-list>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
