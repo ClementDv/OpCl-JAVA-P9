@@ -40,7 +40,7 @@ public class NoteController {
     })
     @GetMapping("/{id}")
     public NoteDto getNote(
-            @Parameter(name = "noteId", description = "use to identify the note") @PathVariable("id") Long noteId) {
+            @Parameter(name = "id", description = "use to identify the note") @PathVariable("id") Long noteId) {
         return service.getNote(noteId);
     }
 
