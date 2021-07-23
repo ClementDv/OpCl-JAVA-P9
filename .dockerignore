@@ -1,4 +1,7 @@
 .git/
+webapp/
+webapp/**
+.readme/
 
 ### Docker configs
 /.dockerignore

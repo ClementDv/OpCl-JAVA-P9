@@ -7,6 +7,7 @@ import com.mediscreen.mediscreenapp.note.data.NoteData;
 import com.mediscreen.mediscreenapp.note.dto.NoteDto;
 import com.mediscreen.mediscreenapp.note.dto.SearchFactorsRequest;
 import com.mediscreen.mediscreenapp.note.dto.SearchFactorsResult;
+import com.mediscreen.mediscreenapp.note.entity.Note;
 import com.mediscreen.mediscreenapp.note.exception.NoteNotFoundException;
 import com.mediscreen.mediscreenapp.note.service.NoteService;
 import org.assertj.core.api.Assertions;
@@ -49,6 +50,21 @@ class NoteControllerTest {
     }
 
     @Test
+    void getNoteById() throws Exception {
+        long id = 5L;
+        NoteDto note = NoteData.generateNoteDto(id);
+        Mockito.when(service.getNote(id)).thenReturn(note);
+
+        MvcResult result = mvc.perform(get("/note/" + id)
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andReturn();
+
+        NoteDto noteDtoResult = jsonMapper.readValue(result.getResponse().getContentAsString(), NoteDto.class);
+        Assertions.assertThat(noteDtoResult).isEqualTo(note);
+    }
+
+    @Test
     void getNotesFromPatientId() throws Exception {
         long id = 12L;
         List<NoteDto> noteDtoList = NoteData.generateNoteDtoList(10, id);
@@ -61,7 +77,8 @@ class NoteControllerTest {
             return noteDtoList;
         });
         // GetNotes
-        MvcResult result = mvc.perform(get("/note/" + id)
+        MvcResult result = mvc.perform(get("/note")
+                .param("patientId", Long.toString(id))
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
@@ -71,7 +88,8 @@ class NoteControllerTest {
         });
         Assertions.assertThat(noteDtoListResult).isEqualTo(noteDtoList);
         // InvalidParam
-        mvc.perform(get("/note/-1")
+        mvc.perform(get("/note")
+                .param("patientId", "-1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity());
     }
@@ -124,10 +142,8 @@ class NoteControllerTest {
 
     @Test
     void deleteNote() throws Exception {
-        NoteDto noteDto = NoteData.generateNoteDto(1L);
-        mvc.perform(put("/note")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonMapper.writeValueAsString(noteDto))
+        long id = 22L;
+        mvc.perform(delete("/note/" + id)
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }

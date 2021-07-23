@@ -45,6 +45,21 @@ class NoteServiceTest {
     }
 
     @Test
+    void getNote() {
+        long id = 22L;
+        // Get note
+        Note note = NoteData.generateNote(id);
+        Mockito.when(repository.findById(id)).thenReturn(Optional.of(note));
+        Assertions.assertThat(noteService.getNote(id)).isEqualTo(noteMapper.toDto(note));
+
+        // InvalidParameterException
+        Assertions.assertThatThrownBy(() -> noteService.getNote(-22L)).isInstanceOf(InvalidParameterException.class);
+        // NoteNotFoundException
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+        Assertions.assertThatThrownBy(() -> noteService.getNote(id)).isInstanceOf(NoteNotFoundException.class);
+    }
+
+    @Test
     void getByPatientId() {
         long id = 1L;
         List<Note> noteList = NoteData.generateNoteList(5, id);
